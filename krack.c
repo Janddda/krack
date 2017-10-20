@@ -38,20 +38,20 @@ int main(int argc, char** argv) {
         }
     }
 
-    if (!(size_t)strlen(device_name)) {
-        if (pcap_findalldevs(&alldevsp, error) == -1) {
-            fprintf(stderr, "ERROR: couldn't find any devices!: %s", error);
-            exit(1);
-        }
-        uint8_t device_counter = 1;
-        for (device = alldevsp; device != NULL; device = device->next) {
-            printf("%d. %s - %s\n", device_counter, device->name, device->description);
-            if (device->name != NULL) {
-                strcpy(devices[device_counter - 1], device->name);
-                device_counter++;
-            }
-        } 
-    }
+//    if (!(size_t)strlen(device_name)) {
+//        if (pcap_findalldevs(&alldevsp, error) == -1) {
+//            fprintf(stderr, "ERROR: couldn't find any devices!: %s", error);
+//            exit(1);
+//        }
+//        uint8_t device_counter = 1;
+//        for (device = alldevsp; device != NULL; device = device->next) {
+//            printf("%d. %s - %s\n", device_counter, device->name, device->description);
+//            if (device->name != NULL) {
+//                strcpy(devices[device_counter - 1], device->name);
+//                device_counter++;
+//            }
+//        } 
+//    }
 
     device_name = pcap_lookupdev(error);
 
