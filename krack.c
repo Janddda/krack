@@ -1,12 +1,3 @@
-/**
- * @Author:     Dillan Hildebrand
- *
- * @Disclaimer: I did not find these vulnerabilities but
- *              simply implemented PoC exploits based on
- *              documentation publicly available online.
- *
- * @License:    MIT
- */
 #include "krack.h"
 
 int main(int argc, char** argv) {
