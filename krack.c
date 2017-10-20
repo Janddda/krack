@@ -9,29 +9,32 @@
  */
 #include "krack.h"
 
-
-/**
- * Globals
- */
-uintmax_t total = 0;
-
-
 int main(int argc, char** argv) {
+    int opt  = 0;
+    int sock = 0;
+    
+    pcap_if_t *alldevsp;
+    pcap_if_t *device;
+    pcap_t    *handle;
 
-    int opt = 0;
-    while((opt = getopt(argc, argv, "e:t:u")) != -1) {
+    char* device_name;
+    char  error[100];
+    char  devices[100][100];
+
+    /**
+     * i = interface
+     * u = usage
+     */
+    while((opt = getopt(argc, argv, "i:u")) != -1) {
         if (optarg == NULL)
             continue;
 
         switch(opt) {
-            case 'e': {
+            case 'i': {
+                device_name = optarg;
                 break;
             }
 
-            case 't': {
-                break;
-            }
-            
             case 'u': {
                 usage();
                 break;
@@ -43,9 +46,41 @@ int main(int argc, char** argv) {
         }
     }
 
+    if (!(size_t)strlen(device_name)) {
+        uint8_t device_counter = 1;
+        for (device = alldevsp; device != NULL; device = device->next) {
+            printf("%d. %s - %s\n", device_counter, device->name, device->description);
+            if (device->name != NULL) {
+                strcpy(devices[device_counter - 1], device->name);
+                device_counter++;
+            }
+        } 
+    }
+/*
+    while (1) {
+        int saddr_size = sizeof(saddr);
+        int data_size  = recvfrom(sock, buffer, buff_size, 0, &saddr, &saddr_size);
+
+        if (data_size < 0) {
+            sprintf(stderr, "Failed to recv any more packets from src.");
+            return 1;
+        }
+
+        process_packet(buffer, data_size);
+    }
+
+    close(sock);
+*/
     return 0;
 }
 
+void usage() {
+
+}
+
+/**
+ * 
+ */
 uint8_t chksum(uint8_t* ptr, int nbytes) {
     uint8_t odd_byte;
     register long sum = 0;
@@ -69,5 +104,7 @@ uint8_t chksum(uint8_t* ptr, int nbytes) {
  * Process each packet.
  */
 void process_packet(unsigned char* buffer, int size) {
-    struct iphdr* ip_hdr = (struct iphdr*)buffer;
+
 }
+
+

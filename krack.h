@@ -10,21 +10,23 @@
 /**
  * Network headers
  */
+#include <pcap.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <net/ethernet.h>
 #include <netinet/ip_icmp.h>
 #include <netinet/udp.h>
 #include <netinet/tcp.h>
 #include <netinet/ip.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
 
-struct pseudo_header {
-    uint32_t src_addr;
-    uint32_t dst_addr;
-     uint8_t placeholder;
-     uint8_t protocol;
-    uint16_t tcp_len;
-};
+/**
+ * Asdf function prototypes.
+ */
+void usage();
 
+/**
+ * Packet / networking related function prototypes.
+ */
 uint8_t chksum(uint8_t*, int);
 void process_packet(unsigned char*, int);
 

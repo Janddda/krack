@@ -1,20 +1,20 @@
 CC=gcc
 # ri_gk_4way_hs.c  ri_gk.c  ri_igk_4way_hs.c  ri_igk.c  ri_pk_4way_hs.c  ri_pk_accept_rftrr.c
 CFLAGS=-Wall -I.
-SRC='krack.c'
-EDIR='exploits/'
-CVESRC="$(EDIR)CVE-2017-13077.c $(EDIR)CVE-2017-13078.c $(EDIR)CVE-2017-13079.c $(EDIR)CVE-2017-13080.c $(EDIR)CVE-2017-13081.c $(EDIR)CVE-2017-13082.c"
+SRC=krack.c
+EDIR=./exploits/
+CVESRC=$(EDIR)CVE-2017-13077.c $(EDIR)CVE-2017-13078.c $(EDIR)CVE-2017-13079.c $(EDIR)CVE-2017-13080.c $(EDIR)CVE-2017-13081.c $(EDIR)CVE-2017-13082.c
 
-all: mkbin exploits
+all: mkdir compile
 
-exploits:
-	$(CC) $(CFLAGS) $(SRCFILES) -o ./bin/kcrack
+compile:
+	$(CC) $(CFLAGS) $(SRC) $(CVESRC) -o krack
 
-mkbin:
+mkdir:
 	if [ ! -d bin ]; then mkdir bin; fi
 
 clean:
-	rm -rf *.o
-	[[ -d bin ]] && rm -rf bin
+	rm -f *.o
+	rm -f krack 
 
-.SILENT: mkbin clean
+.SILENT: mkdir clean
