@@ -19,18 +19,21 @@
 #include <netinet/tcp.h>
 #include <netinet/ip.h>
 
-typedef void (*pcap_cb)(unsigned char*, const struct pcap_pkthdr*, const unsigned char*);
+typedef unsigned char* uchar_ptr;
+typedef const unsigned char* c_uchar_ptr;
+typedef void (*pcap_cb)(uchar_ptr, const struct pcap_pkthdr*, c_uchar_ptr);
 
 /**
  * Asdf function prototypes.
  */
 void usage();
+char** get_pcap_filters(char*);
 
 /**
  * Packet / networking related function prototypes.
  */
 uint8_t chksum(uint8_t*, int);
-void packet_handler(unsigned char*, int);
+void krack_pcap_handler(uchar_ptr, const struct pcap_pkthdr*, c_uchar_ptr);
 
 /**
  * Exploit function prototypes.
