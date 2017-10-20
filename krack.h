@@ -19,6 +19,8 @@
 #include <netinet/tcp.h>
 #include <netinet/ip.h>
 
+typedef void (*pcap_cb)(unsigned char*, const struct pcap_pkthdr*, const unsigned char*);
+
 /**
  * Asdf function prototypes.
  */
@@ -28,7 +30,7 @@ void usage();
  * Packet / networking related function prototypes.
  */
 uint8_t chksum(uint8_t*, int);
-void process_packet(unsigned char*, int);
+void packet_handler(unsigned char*, int);
 
 /**
  * Exploit function prototypes.
