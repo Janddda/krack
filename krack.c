@@ -13,9 +13,9 @@ int main(int argc, char** argv) {
     int opt  = 0;
     int sock = 0;
     
-    pcap_if_t *alldevsp;
-    pcap_if_t *device;
-    pcap_t    *handle;
+    pcap_if_t *alldevsp = NULL;
+    pcap_if_t *device   = NULL;
+    pcap_t    *handle   = NULL;
 
     char* device_name;
     char  error[100];
@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
         }
     }
 
-    if (!(size_t)strlen(device_name)) {
+    if (!(size_t)strlen(device_name) && alldevsp != NULL) {
         uint8_t device_counter = 1;
         for (device = alldevsp; device != NULL; device = device->next) {
             printf("%d. %s - %s\n", device_counter, device->name, device->description);
